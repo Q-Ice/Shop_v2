@@ -1,0 +1,128 @@
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  title Shop
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css')
+  script(src='https://kit.fontawesome.com/c909c23c5d.js', crossorigin='anonymous')
+  link(rel='stylesheet', href='./styles/base.css')
+  link(rel='stylesheet', href='./styles/cart.css')
+  link(rel='stylesheet', href='./styles/layouts.css')
+  link(rel='stylesheet', href='./styles/modal.css')
+  link(rel='stylesheet', href='./styles/auth.css')
+  link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap', rel='stylesheet')
+.app
+  header.header
+    .grid
+      nav.header__navbar
+        ul.header__navbar-list
+          li.header__navbar-item.header__navbar-item--has-qr.header__navbar-item--separate(style='margin-left: -6px;')
+            | Vào cửa hàng trên ứng dụng Shop
+            // Header QR Code
+            .header__qr
+              img.header__qr-img(src='./images/qr_code.png', alt='QR Code')
+              .header__qr-apps
+                a.header__qr-link(href='')
+                  img.header__qr-download-img(src='./images/google_play.png', alt='')
+                a.header__qr-link(href='')
+                  img.header__qr-download-img(src='./images/app_store.png', alt='')
+          li.header__navbar-item
+            span.header__navbar-title--no-pointer K&#x1EBF;t n&#x1ED1;i
+            a.header__navbar-icon-link(href='')
+              i.header__navbar-icon.fab.fa-facebook
+            a.header__navbar-icon-link(href='')
+              i.header__navbar-icon.fab.fa-instagram
+        ul.header__navbar-list
+          li.header__navbar-item.header__navbar-item--has-notify
+            a.header__navbar-item-link(href='')
+              i.header__navbar-icon.far.fa-bell
+              | Thông báo
+            .header__notify
+              header.header__notify-header
+                h3 Thông báo mới nhận
+              ul.header__notify-list
+                li.header__notify-item.header__notify-item--viewed
+                  a.header__notify-link(href='')
+                    img.header__notify-img(src='https://abphotos.link/photos/resized/825x416/83-1627146178-myphamohui-lgvina.png', alt='')
+                    .header__notify-info
+                      span.header__notify-name Mỹ phẩm Ohui chính hãng
+                      span.header__notify-descriotion
+                        | M&ocirc; t&#x1EA3; mỹ phẩm Ohui chính hãng
+                li.header__notify-item.header__notify-item--viewed
+                  a.header__notify-link(href='')
+                    img.header__notify-img(src='https://abphotos.link/photos/resized/825x416/83-1627146178-myphamohui-lgvina.png', alt='')
+                    .header__notify-info
+                      span.header__notify-name M&#x1EF9; ph&#x1EA9;m Ohui ch&iacute;nh h&atilde;ng
+                      span.header__notify-descriotion
+                        | M&ocirc; t&#x1EA3; m&#x1EF9; ph&#x1EA9;m Ohui ch&iacute;nh
+                        | h&atilde;ng
+                li.header__notify-item
+                  a.header__notify-link(href='')
+                    img.header__notify-img(src='https://abphotos.link/photos/resized/825x416/83-1627146178-myphamohui-lgvina.png', alt='')
+                    .header__notify-info
+                      span.header__notify-name M&#x1EF9; ph&#x1EA9;m Ohui ch&iacute;nh h&atilde;ng
+                      span.header__notify-descriotion
+                        | M&ocirc; t&#x1EA3; m&#x1EF9; ph&#x1EA9;m Ohui ch&iacute;nh
+                        | h&atilde;ng
+              footer.header__notify-footer
+                a.header__notify-footer-btn(href='') Xem t&#x1EA5;t c&#x1EA3;
+          li.header__navbar-item
+            a.header__navbar-item-link(href='')
+              i.header__navbar-icon.fas.fa-question-circle
+              | Trợ giúp
+          li.header__navbar-item.header__navbar-item--strong.header__navbar-item--separate.header__navbar-item--register Đăng ký
+          li.header__navbar-item.header__navbar-item--strong.header__navbar-item--login Đăng nhập
+          li.header__navbar-item.header__navbar-user.hide
+            img.header__navbar-user-img(src='./images/n-min.png', alt='')
+            span.header__navbar-user-name Min
+            ul.header__navbar-user-menu
+              li.header__navbar-user-item
+                a(href='') T&agrave;i kho&#x1EA3;n c&#x1EE7;a t&ocirc;i
+              li.header__navbar-user-item
+                a(href='') &Dstrok;&#x1ECB;a ch&#x1EC9; c&#x1EE7;a t&ocirc;i
+              li.header__navbar-user-item
+                a(href='') &Dstrok;&#x1A1;n mua
+              li.header__navbar-user-item.header__navbar-user-item--separate
+                a(href='') &Dstrok;&abreve;ng xu&#x1EA5;t
+      // Header with Search
+  .app_container
+    .grid
+      .header-with-search
+        .header__logo
+          i.fa-solid.fa-cart-shopping.icon-shopping
+          | Giỏ hàng
+      .home-product
+        each product in products
+          .home-product-item(product-id=`${product.productId}`)
+            img.home-product-item__img(src=`${product.productImg}`, alt='')
+            h4.home-product-item__name #{product.productName}
+            .home-product-item__price
+              span.home-product-item__price-old #{product.priceOld}&dstrok;
+              span.home-product-item__price-current #{product.priceNew}&dstrok;
+            input.home-product-item__quantity(type='number', name='quantity', min='1', max='5', value='1', onchange=`handleUpdatePrice(${product.productId})`)
+            span.home-product-item__total 900000&dstrok;
+            a(href=`/cart/delete/${product.productId}`).home-product-item__remove Xóa
+      .home-product-totals
+        span.home-product-totals__price 0
+        button#payment.btn.btn--primary Thanh toán
+  
+  include ./auth/login      
+  include ./layouts/footer
+
+.modal.hide
+  .modal__inner
+    .modal__header
+      p Welcome to Shop
+      i.fas.fa-times
+    .modal__body
+      h2 Success
+      p Bạn đã mua hàng thành công
+    .modal__footer
+      button(form='path', formaction='/').btn-success OK 
+form#path
+script  
+  include ../../script/modals/modal.js
+script
+  include ../../script/cart.js
+script  
+  include ../../script/modals/modal.auth.js
