@@ -78,7 +78,7 @@ head
                 li.header__navbar-user-item
                   a(href='') Đã mua
                 li.header__navbar-user-item.header__navbar-user-item--separate
-                  a(href='') Đăng xuất
+                  a(href='/logout') Đăng xuất
       // Header with Search
       .header-with-search
         .header__logo
@@ -122,11 +122,11 @@ head
           img.slide-item(src='./images/slideshow2.jpg', alt='')
           img.slide-item(src='./images/slideshow3.jpg', alt='')
         .slide-dot
-          span.dot.active(onclick='currentSlide(0)')
-          span.dot(onclick='currentSlide(1)')
-          span.dot(onclick='currentSlide(2)')
-        a.prev(onclick='showSlide(-1)') &#x276E;
-        a.next(onclick='showSlide(1)') &#x276F;
+          span.dot.active(onclick='currentSlide(0); clearMyInternal()')
+          span.dot(onclick='currentSlide(1); clearMyInternal()')
+          span.dot(onclick='currentSlide(2); clearMyInternal()')
+        a.prev(onclick='showSlide(-1); clearMyInternal()') &#x276E;
+        a.next(onclick='showSlide(1); clearMyInternal()') &#x276F;
       .grid__row.app__content
         .grid__column-2
           nav.category
@@ -155,7 +155,8 @@ head
                   a.select-input__link(href='') Giá: Cao đến thấp
             .home-filter__page
               span.home-filter__page-num
-                span.home-filter__page-current 1/14
+                span.home-filter__page-current 1
+                | /14
               .home-filter__page-control
                 a.home-filter__page-btn.home-filter__page-btn--disabled(href='')
                   i.home-filter__page-icon.fas.fa-angle-left
@@ -174,17 +175,6 @@ head
                         span.home-product-item__price-label Price: 
                         span.home-product-item__price-old #{product.priceOld}&dstrok;
                         span.home-product-item__price-current #{product.priceNew}&dstrok;
-                      //- .home-product-item__action
-                        span.home-product-item__like.home-product-item__like--liked
-                          i.home-product-item__like-icon-empty.far.fa-heart
-                          i.home-product-item__like-icon-fill.fas.fa-heart
-                        .home-product-item__rating
-                          i.home-product-item__star--gold.fas.fa-star
-                          i.home-product-item__star--gold.fas.fa-star
-                          i.home-product-item__star--gold.fas.fa-star
-                          i.home-product-item__star--gold.fas.fa-star
-                          i.fas.fa-star
-                        span.home-product-item__sold 88 đã bán
                       if product.sold=='true'
                         button(form=`add-product-${product.productId}`, 
                               disabled = "disabled").home-product-item__add.btn.btn--disable Đã mua
@@ -219,6 +209,7 @@ head
             li.pagination-item
               a.pagination-item__link(href='')
                 i.pagination-item__icon.fas.fa-angle-right
+  //- +auth('/register', '/login')
   include ./auth/login
   include ./layouts/footer
 script

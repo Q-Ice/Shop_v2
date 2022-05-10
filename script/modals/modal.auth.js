@@ -1,6 +1,7 @@
 const modalAuthOverlay = document.querySelector('.modal-auth__overlay')
 const modalAuth = document.querySelector('.modal-auth')
 
+const logout = document.querySelector('li.header__navbar-user-item.header__navbar-user-item--separate')
 // Show Log in
 const register = $('.header__navbar-item--register')
 const login = $('.header__navbar-item--login')

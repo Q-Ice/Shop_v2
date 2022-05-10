@@ -6,7 +6,9 @@ function start() {
     const params = location.search
     var page = params.split('=')[1] || 1
     var type = location.pathname.slice(1) || 'A'
-
+    // if (params.split('=')[1].substring(1) != 'page') page = 1;
+    // console.log('type: ', type)
+    // if (type != 'A' && type != 'B' && type != 'C') type = 'A'
     // Pagination
     $('.pagination-item--active').classList.remove('pagination-item--active')
     $(`[page='${page}']`).classList.add('pagination-item--active')
@@ -14,7 +16,7 @@ function start() {
     // Category
     $('.category-item.category-item--active').classList.remove('category-item--active')
     $(`[typeproduct='${type}'].category-item`).classList.add('category-item--active')
-}   
+}
 
 start()
 
@@ -44,6 +46,10 @@ function currentSlide(n) {
     slideIndex = 0;
     showSlide(n)
 }
-setInterval(() => showSlide(1), 3000)
+var myInternal = setInterval(() => showSlide(1), 3000)
 
+function clearMyInternal() {
+    clearInterval(myInternal)
+    myInternal = setInterval(() => showSlide(1), 3000)
+}
 

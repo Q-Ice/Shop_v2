@@ -1,10 +1,7 @@
 const modal = document.querySelector('.modal')
-const openModalBtn = document.querySelector('#payment')
 const iconCloseModal = document.querySelector('.modal__header i')
 const buttonCloseModal = document.querySelector('.modal__footer button')
 
-
-openModalBtn.addEventListener('click', toggleModal)
 iconCloseModal.addEventListener('click', toggleModal)
 buttonCloseModal.addEventListener('click', toggleModal)
 

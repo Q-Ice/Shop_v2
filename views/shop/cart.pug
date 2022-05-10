@@ -16,8 +16,8 @@ head
     .grid
       nav.header__navbar
         ul.header__navbar-list
-          li.header__navbar-item.header__navbar-item--has-qr.header__navbar-item--separate(style='margin-left: -6px;')
-            | Vào cửa hàng trên ứng dụng Shop
+          a(href='/').header__navbar-item.header__navbar-item--has-qr.header__navbar-item--separate(style='margin-left: -6px;')
+            | Vào cửa hàng
             // Header QR Code
             .header__qr
               img.header__qr-img(src='./images/qr_code.png', alt='QR Code')
@@ -70,27 +70,29 @@ head
             a.header__navbar-item-link(href='')
               i.header__navbar-icon.fas.fa-question-circle
               | Trợ giúp
-          li.header__navbar-item.header__navbar-item--strong.header__navbar-item--separate.header__navbar-item--register Đăng ký
-          li.header__navbar-item.header__navbar-item--strong.header__navbar-item--login Đăng nhập
-          li.header__navbar-item.header__navbar-user.hide
-            img.header__navbar-user-img(src='./images/n-min.png', alt='')
-            span.header__navbar-user-name Min
-            ul.header__navbar-user-menu
-              li.header__navbar-user-item
-                a(href='') T&agrave;i kho&#x1EA3;n c&#x1EE7;a t&ocirc;i
-              li.header__navbar-user-item
-                a(href='') &Dstrok;&#x1ECB;a ch&#x1EC9; c&#x1EE7;a t&ocirc;i
-              li.header__navbar-user-item
-                a(href='') &Dstrok;&#x1A1;n mua
-              li.header__navbar-user-item.header__navbar-user-item--separate
-                a(href='') &Dstrok;&abreve;ng xu&#x1EA5;t
+          if (!userId)
+            li.header__navbar-item.header__navbar-item--strong.header__navbar-item--separate.header__navbar-item--register Đăng ký
+            li.header__navbar-item.header__navbar-item--strong.header__navbar-item--login Đăng nhập
+          else 
+            li.header__navbar-item.header__navbar-user
+              img.header__navbar-user-img(src='./images/n-min.png', alt='')
+              span.header__navbar-user-name #{userName}
+              ul.header__navbar-user-menu
+                li.header__navbar-user-item
+                  a(href='') Tài khoản của tôi
+                li.header__navbar-user-item
+                  a(href='') Địa chỉ của tôi
+                li.header__navbar-user-item
+                  a(href='') Đơn mua
+                li.header__navbar-user-item.header__navbar-user-item--separate
+                  a(href='cart/logout') Đăng xuất
       // Header with Search
   .app_container
     .grid
       .header-with-search
-        .header__logo
+        .header__logo#logo
           i.fa-solid.fa-cart-shopping.icon-shopping
-          | Giỏ hàng
+          | Giỏ Hàng
       .home-product
         each product in products
           .home-product-item(product-id=`${product.productId}`)
@@ -104,11 +106,15 @@ head
             a(href=`/cart/delete/${product.productId}`).home-product-item__remove Xóa
       .home-product-totals
         span.home-product-totals__price 0
-        button#payment.btn.btn--primary Thanh toán
-  
+        if (userId)
+          button#payment.btn.btn--primary.have-user Thanh toán
+        else 
+          button#payment.btn.btn--primary.no-have-user Thanh toán  
+  //- +auth('/editor/register', '/editor/login')
   include ./auth/login      
   include ./layouts/footer
-
+a(href='#payment').move-to-payment
+  i.fa-solid.fa-angle-down
 .modal.hide
   .modal__inner
     .modal__header
@@ -118,7 +124,7 @@ head
       h2 Success
       p Bạn đã mua hàng thành công
     .modal__footer
-      button(form='path', formaction='/').btn-success OK 
+      button(form='path', formaction='/success').btn-success OK 
 form#path
 script  
   include ../../script/modals/modal.js
